@@ -1,0 +1,471 @@
+{
+  "region": "Spirit Vale",
+  "zone": "Forest Labyrinth",
+  "note": "Each map is a square with up to 4 exits (north, east, south, west). Exits connect maps together. Exit value legend: map-id = connects to that map, null = unknown/unexplored, false = wall (no exit here). Nodes with type 'external-exit' are boundary portals leaving the labyrinth to the overworld, not interior maps.",
+  "entrances": "The labyrinth has 4 mapped entry/exit points: (1) the Waypoint portal you teleport into (Section 1 side), (2) Sunny Meadows 2 boundary exit off the Bee map (Lv.6-10, low-level SW), (3) Fairy Glen boundary exit off the Mandrake map (Lv.31-35, via Diggers north), (4) Mystic Lake 1 boundary exit off the Egglet map (Lv.31-35, far SE). The two high-level exits (Fairy Glen, Mystic Lake) bookend the deep end; Sunny Meadows is the low-level end.",
+  "maps": {
+    "waypoint": {
+      "id": "waypoint",
+      "name": "Waypoint Map",
+      "note": "Entry/hub map - where you arrive when you portal into the Forest Labyrinth.",
+      "entrance": true,
+      "model": "assets/pup.png",
+      "creatures": [
+        {
+          "name": "Pup",
+          "level": 19,
+          "levelApprox": false,
+          "density": null,
+          "element": "Fire",
+          "siteLevel": 19,
+          "cardDrop": "Dog Pup"
+        }
+      ],
+      "exits": {
+        "north": false,
+        "east": false,
+        "south": false,
+        "west": "sparkit"
+      },
+      "labyrinthSection": 1
+    },
+    "sparkit": {
+      "id": "sparkit",
+      "name": "Sparkit Map",
+      "model": "assets/sparkit.png",
+      "creatures": [
+        {
+          "name": "Sparkit",
+          "level": 16,
+          "levelApprox": false,
+          "density": null,
+          "element": "Wind",
+          "siteLevel": 16,
+          "cardDrop": "Cat Meow"
+        }
+      ],
+      "exits": {
+        "north": false,
+        "east": "waypoint",
+        "south": false,
+        "west": "seedling"
+      },
+      "labyrinthSection": 1
+    },
+    "seedling": {
+      "id": "seedling",
+      "name": "Seedling Map",
+      "model": "assets/seedling.png",
+      "creatures": [
+        {
+          "name": "Seedling",
+          "level": 5,
+          "levelApprox": false,
+          "element": "Earth",
+          "density": null,
+          "siteLevel": 5,
+          "cardDrop": "Seed"
+        }
+      ],
+      "exits": {
+        "north": "bee",
+        "east": "sparkit",
+        "south": null,
+        "west": "frost_wisp"
+      },
+      "labyrinthSection": 1
+    },
+    "frost_wisp": {
+      "id": "frost_wisp",
+      "name": "Frost Wisp Map",
+      "model": "assets/frost-wisp.png",
+      "creatures": [
+        {
+          "name": "Frost Wisp",
+          "level": 11,
+          "levelApprox": false,
+          "density": null,
+          "element": "Water",
+          "siteLevel": 11,
+          "cardDrop": "Wisp Blue"
+        }
+      ],
+      "exits": {
+        "north": false,
+        "east": "seedling",
+        "south": false,
+        "west": "fledgling"
+      },
+      "labyrinthSection": 2
+    },
+    "fledgling": {
+      "id": "fledgling",
+      "name": "Fledgling Map",
+      "model": "assets/fledgling.png",
+      "shape": "U",
+      "shapeNote": "U-shaped map: you enter from the east (Frost Wisp), do a U-turn inside, and exit toward Hound on the far-west/southern side. The two openings are both on the west side of the square (upper = entrance from Frost Wisp path, lower/south = exit to Hound).",
+      "creatures": [
+        {
+          "name": "Fledgling",
+          "level": 8,
+          "levelApprox": false,
+          "element": "Neutral",
+          "density": null,
+          "siteLevel": 8,
+          "cardDrop": "Fledgling"
+        }
+      ],
+      "exits": {
+        "north": null,
+        "east": "frost_wisp",
+        "south": "hound",
+        "west": null
+      },
+      "labyrinthSection": 2
+    },
+    "hound": {
+      "id": "hound",
+      "name": "Hound Map",
+      "model": "assets/hound.png",
+      "creatures": [
+        {
+          "name": "Hound",
+          "level": 20,
+          "levelApprox": false,
+          "density": null,
+          "element": "Fire",
+          "siteLevel": 20,
+          "cardDrop": "Dog Bark"
+        }
+      ],
+      "exits": {
+        "north": "fledgling",
+        "east": "rooster",
+        "south": "rabbit",
+        "west": null
+      },
+      "labyrinthSection": 2
+    },
+    "rabbit": {
+      "id": "rabbit",
+      "name": "Rabbit Map",
+      "model": "assets/rabbit.png",
+      "shape": "L",
+      "shapeNote": "L-shaped map with only 2 exits: enter from the north (Hound), and exit east into the Diggers west portal.",
+      "creatures": [
+        {
+          "name": "Rabbit",
+          "level": 25,
+          "levelApprox": false,
+          "element": "Neutral",
+          "density": null,
+          "siteLevel": 25,
+          "cardDrop": "Rabbit"
+        }
+      ],
+      "exits": {
+        "north": "hound",
+        "east": "diggers",
+        "south": false,
+        "west": false
+      },
+      "labyrinthSection": 3
+    },
+    "bee": {
+      "id": "bee",
+      "name": "Bee Map",
+      "model": "assets/bee.png",
+      "creatures": [
+        {
+          "name": "Bee",
+          "level": 6,
+          "levelApprox": false,
+          "density": null,
+          "element": "Wind",
+          "siteLevel": 6,
+          "cardDrop": "Bee"
+        }
+      ],
+      "exits": {
+        "north": false,
+        "east": "sunny_meadows_2",
+        "south": "seedling",
+        "west": false
+      },
+      "labyrinthSection": 1
+    },
+    "sunny_meadows_2": {
+      "id": "sunny_meadows_2",
+      "name": "Sunny Meadows 2",
+      "type": "external-exit",
+      "note": "Boundary portal OUT of the Forest Labyrinth to the overworld zone 'Sunny Meadows 2' (Lv.6-10). This is one of the labyrinth's non-waypoint entrances/exits.",
+      "levelRange": "6-10",
+      "model": "assets/exit-sunny-meadows-2.png",
+      "exits": {
+        "north": false,
+        "east": false,
+        "south": false,
+        "west": "bee"
+      }
+    },
+    "rooster": {
+      "id": "rooster",
+      "name": "Rooster Map",
+      "model": "assets/rooster.png",
+      "creatures": [
+        {
+          "name": "Rooster",
+          "level": 10,
+          "levelApprox": true,
+          "density": "many",
+          "element": "Neutral",
+          "siteLevel": 10,
+          "cardDrop": "Bird"
+        }
+      ],
+      "exits": {
+        "north": "diggers",
+        "east": "sprite",
+        "south": "sprout",
+        "west": "hound"
+      },
+      "labyrinthSection": 2
+    },
+    "diggers": {
+      "id": "diggers",
+      "name": "Digger Map",
+      "model": "assets/digger.png",
+      "creatures": [
+        {
+          "name": "Digger",
+          "level": 17,
+          "levelApprox": false,
+          "density": null,
+          "element": "Earth",
+          "siteLevel": 17,
+          "cardDrop": "Burrow"
+        }
+      ],
+      "exits": {
+        "north": "mandrake",
+        "east": "sprout",
+        "south": "rooster",
+        "west": "rabbit"
+      },
+      "labyrinthSection": 3
+    },
+    "mandrake": {
+      "id": "mandrake",
+      "name": "Mandrake Map",
+      "model": "assets/mandrake.png",
+      "creatures": [
+        {
+          "name": "Mandrake",
+          "level": 20,
+          "levelApprox": false,
+          "density": null,
+          "element": "Earth",
+          "siteLevel": 20,
+          "cardDrop": "Flower Pot Monster"
+        }
+      ],
+      "exits": {
+        "north": "fairy_glen",
+        "east": false,
+        "south": "diggers",
+        "west": false
+      },
+      "labyrinthSection": 3
+    },
+    "fairy_glen": {
+      "id": "fairy_glen",
+      "name": "Fairy Glen",
+      "type": "external-exit",
+      "note": "Boundary portal OUT of the Forest Labyrinth to the overworld zone 'Fairy Glen' (Lv.31-35). Reached via the north exit of the Mandrake map.",
+      "levelRange": "31-35",
+      "exits": {
+        "north": false,
+        "east": false,
+        "south": "mandrake",
+        "west": false
+      }
+    },
+    "sprout": {
+      "id": "sprout",
+      "name": "Sprout Map",
+      "model": "assets/sprout.png",
+      "creatures": [
+        {
+          "name": "Sprout",
+          "level": 9,
+          "levelApprox": false,
+          "density": null,
+          "element": "Earth",
+          "siteLevel": 9,
+          "cardDrop": "Sprout"
+        }
+      ],
+      "exits": {
+        "north": "rooster",
+        "east": "bumblebee",
+        "south": null,
+        "west": "diggers"
+      },
+      "labyrinthSection": 3
+    },
+    "bumblebee": {
+      "id": "bumblebee",
+      "name": "Bumblebee Map",
+      "note": "Distinct from the Bee map (lvl 6) on the western spine - different creature and location.",
+      "model": "assets/bumblebee.png",
+      "creatures": [
+        {
+          "name": "Bumblebee",
+          "level": 7,
+          "levelApprox": false,
+          "density": null,
+          "element": "Wind",
+          "siteLevel": 7,
+          "cardDrop": "Bumble"
+        }
+      ],
+      "exits": {
+        "north": false,
+        "east": false,
+        "south": "lightning_wisp",
+        "west": "sprout"
+      },
+      "labyrinthSection": 4
+    },
+    "lightning_wisp": {
+      "id": "lightning_wisp",
+      "name": "Lightning Wisp Map",
+      "model": "assets/lightning-wisp.png",
+      "creatures": [
+        {
+          "name": "Lightning Wisp",
+          "level": 12,
+          "levelApprox": false,
+          "density": null,
+          "element": "Wind",
+          "siteLevel": 12,
+          "cardDrop": "Wisp Purple"
+        }
+      ],
+      "exits": {
+        "north": "bumblebee",
+        "east": "egglet",
+        "south": "sprite",
+        "west": false
+      },
+      "labyrinthSection": 4
+    },
+    "sprite": {
+      "id": "sprite",
+      "name": "Sprite Map",
+      "model": "assets/sprite.png",
+      "creatures": [
+        {
+          "name": "Sprite",
+          "level": 31,
+          "levelApprox": false,
+          "density": null,
+          "element": "Holy",
+          "siteLevel": 31,
+          "cardDrop": "Butterfly Hue"
+        }
+      ],
+      "exits": {
+        "north": "lightning_wisp",
+        "east": false,
+        "south": "rooster",
+        "west": false
+      },
+      "labyrinthSection": 4
+    },
+    "egglet": {
+      "id": "egglet",
+      "name": "Egglet Map",
+      "model": "assets/egglet.png",
+      "creatures": [
+        {
+          "name": "Egglet",
+          "level": 23,
+          "levelApprox": false,
+          "density": null,
+          "element": "Neutral",
+          "siteLevel": 23,
+          "cardDrop": "Egglet"
+        }
+      ],
+      "exits": {
+        "north": false,
+        "east": "mystic_lake_1",
+        "south": false,
+        "west": "lightning_wisp"
+      },
+      "labyrinthSection": 4
+    },
+    "mystic_lake_1": {
+      "id": "mystic_lake_1",
+      "name": "Mystic Lake 1",
+      "type": "external-exit",
+      "note": "Boundary portal OUT of the Forest Labyrinth to the overworld zone 'Mystic Lake 1' (Lv.31-35). Reached via the east exit of the Egglet map. Third mapped boundary exit.",
+      "levelRange": "31-35",
+      "exits": {
+        "north": false,
+        "east": false,
+        "south": false,
+        "west": "egglet"
+      }
+    }
+  },
+  "siteReference": {
+    "source": "https://spiritvale.info (maps + monster DB, scraped)",
+    "note": "This game is Spirit Vale (not Guild Wars 2). The site splits the Forest Labyrinth into 4 sections of 4 creatures each (16 total). Individual room layout/exits are NOT on the site \u2014 that is what we are mapping by hand.",
+    "sections": {
+      "1": [
+        "Bee",
+        "Pup",
+        "Seedling",
+        "Sparkit"
+      ],
+      "2": [
+        "Fledgling",
+        "Frost Wisp",
+        "Hound",
+        "Rooster"
+      ],
+      "3": [
+        "Digger",
+        "Mandrake",
+        "Rabbit",
+        "Sprout"
+      ],
+      "4": [
+        "Bumblebee",
+        "Egglet",
+        "Lightning Wisp",
+        "Sprite"
+      ]
+    },
+    "undiscovered": [
+      {
+        "name": "Sprite",
+        "level": 31,
+        "element": "Holy",
+        "section": 4
+      },
+      {
+        "name": "Egglet",
+        "level": 23,
+        "element": "Neutral",
+        "section": 4
+      }
+    ],
+    "localRefFiles": [
+      "ref-monsters.json (262 monsters w/ drops)",
+      "ref-maps.json (48 maps)"
+    ]
+  }
+}
