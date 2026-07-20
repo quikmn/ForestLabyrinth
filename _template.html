@@ -187,7 +187,7 @@
           <span class="lg"><span class="sq" style="background:var(--gold)"></span> Portal</span>
           <span class="lg"><span class="sq" style="background:linear-gradient(90deg,#7a3fb0,#c77dff);border:1px dashed #c77dff"></span> Exit</span>
         </div>
-        <p class="foot">Schematic — not to scale. Use exit lists / route finder for true N·E·S·W. Click a room to inspect it.</p>
+        <p class="foot">Schematic — not to scale. Use exit lists / route finder for true N·E·S·W. <b>Click two rooms</b> to route between them.</p>
       </div>
     </aside>
   </div>
@@ -260,7 +260,7 @@ for(const id of Object.keys(N)){
       ${star}${shape}
     </div>`;
   }
-  div.addEventListener('click', ()=>select(id));
+  div.addEventListener('click', ()=>pick(id));
   div.addEventListener('mouseenter', ()=>hover(id,true));
   div.addEventListener('mouseleave', ()=>hover(id,false));
   stage.appendChild(div);
@@ -285,6 +285,7 @@ for(const id of DATA.order){ fromSel.add(new Option(label(id), id)); toSel.add(n
 fromSel.value='waypoint'; toSel.value='lightning_wisp';
 
 let selected=null;
+let routeStart=null;   // first room picked when building a route by clicking
 function clearClasses(){
   Object.values(nodeEls).forEach(e=>e.classList.remove('dim','hot','sel'));
   Object.values(edgeEls).forEach(e=>e.classList.remove('dim','hot'));
@@ -297,6 +298,26 @@ function hover(id,on){
   } else { Object.values(nodeEls).forEach(e=>e.classList.remove('dim')); }
 }
 function select(id){ selected=id; clearClasses(); nodeEls[id].classList.add('sel'); renderDetail(id); }
+
+// click-to-route: 1st click picks the start, 2nd click picks the destination and draws the route
+function pick(id){
+  const sub=document.getElementById('route-sub'), body=document.getElementById('route-body');
+  if(routeStart===null){
+    routeStart=id;
+    fromSel.value=id;
+    clearClasses();
+    nodeEls[id].classList.add('sel');
+    renderDetail(id);
+    sub.innerHTML = `Start: <b>${N[id].name}</b>`;
+    body.innerHTML = `<p class="route-empty">Now click a <b>destination</b> room (or pick one above).</p>`;
+  } else if(id===routeStart){
+    renderDetail(id);                 // clicked the same room again — just re-inspect it
+  } else {
+    toSel.value=id;
+    findRoute();                      // draws path + steps to this destination
+    routeStart=null;                  // next click starts a fresh route
+  }
+}
 
 function renderDetail(id){
   const n=N[id]; const d=document.getElementById('detail'); d.style.display='block';
@@ -371,11 +392,14 @@ function findRoute(){
   body.innerHTML = html;
   renderDetail(b);
 }
-document.getElementById('go').addEventListener('click', findRoute);
+document.getElementById('go').addEventListener('click', ()=>{ routeStart=null; findRoute(); });
+// changing either dropdown re-routes immediately
+fromSel.addEventListener('change', ()=>{ routeStart=null; findRoute(); });
+toSel.addEventListener('change', ()=>{ routeStart=null; findRoute(); });
 document.getElementById('clear').addEventListener('click', ()=>{
-  clearClasses(); selected=null;
+  clearClasses(); selected=null; routeStart=null;
   document.getElementById('route-sub').textContent='';
-  document.getElementById('route-body').innerHTML='<p class="route-empty">Pick From/To, or click a room.</p>';
+  document.getElementById('route-body').innerHTML='<p class="route-empty">Click two rooms on the map, or pick From/To above.</p>';
 });
 
 fit();
