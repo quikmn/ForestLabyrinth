@@ -289,7 +289,7 @@ let routeStart=null;   // first room picked when building a route by clicking
 function clearClasses(){
   Object.values(nodeEls).forEach(e=>e.classList.remove('dim','hot','sel'));
   Object.values(edgeEls).forEach(e=>e.classList.remove('dim','hot'));
-  Object.querySelectorAll('.node .step').forEach(s=>s.textContent='');
+  document.querySelectorAll('.node .step').forEach(s=>s.textContent='');
 }
 function hover(id,on){
   if(document.querySelector('.node.hot')) return;
